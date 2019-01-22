@@ -2,8 +2,9 @@
   "name": "lab-11-ejs",
   "version": "1.0.0",
   "description": "Book app with ejs",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies": {
+    "dotenv": "^6.2.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "superagent": "^4.1.0"
