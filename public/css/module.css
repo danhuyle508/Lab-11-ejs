@@ -1,16 +1,26 @@
 #searchForm {
+  background-color: slategray;
+  padding: 10px 20px;
   width: 80%;
   margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
-#searchForm .text-entry, #searchForm button {
+#searchForm .text-entry, #searchForm button, #searchForm fieldset {
   font-size: 18pt;
   height: 100px;
   width: 100%;
-  margin-bottom: 15px;
+  margin: 8px 0px;
+  border-radius: 8px;
 }
 #searchForm fieldset {
-  font-size: 18pt;
-  height: 100px;
+  width: 47%;
   padding: 0;
-  margin-bottom: 15px;
+}
+
+#searchForm fieldset label {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
