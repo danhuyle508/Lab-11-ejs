@@ -1,4 +1,4 @@
-*{
+* {
    background-color: #C8DADA;
    font-family: 'Playfair Display', serif;
 }
@@ -9,7 +9,7 @@
 .eachBook{
 	background-color: #6CD898;
 }
-h3{
+h3 {
 	background-color: #65C4C4;
 	text-align: center;
 	padding: 3%;
@@ -17,10 +17,6 @@ h3{
 	width:100%;
 }
 @media (min-width: 480px) and (max-width: 767px) {
-    .buttons{
-        display: flex;
-        padding: 3%;
-    }
     .eachBook{
 			width: 60vw;
 			margin: auto 20%;

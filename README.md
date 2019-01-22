@@ -45,5 +45,5 @@ This application borrows heavily from code samples provided by Allie Grampa. Dav
 > Number and name of feature: Styling UI
 > Estimate of time needed to complete: 1:00
 > Start time: 12:00
-> Finish time: 1:00
-> Actual time needed to complete: 
+> Finish time: 1:30
+> Actual time needed to complete: 1:30 

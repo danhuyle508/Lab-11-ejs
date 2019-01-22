@@ -1,0 +1,16 @@
+#searchForm {
+  width: 80%;
+  margin: auto;
+}
+#searchForm .text-entry, #searchForm button {
+  font-size: 18pt;
+  height: 100px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+#searchForm fieldset {
+  font-size: 18pt;
+  height: 100px;
+  padding: 0;
+  margin-bottom: 15px;
+}
