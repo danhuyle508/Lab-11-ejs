@@ -17,8 +17,12 @@ app.post('/searches', createSearch)
 app.listen(PORT, ()=> console.log(`Listening on port ${PORT}`));
 
 function newSearch(req, res) {
+  res.render('pages/index');
+}
 
-  res.render('pages/index.ejs');
+function handleError(err, res) {
+  console.error(err);
+  res.render('pages/error', {err});
 }
 
 function createSearch(req, res) {
@@ -27,11 +31,12 @@ function createSearch(req, res) {
     .then((response) => {
       return response.body.items.map((bookItem) => {
         return new Book(bookItem.volumeInfo);
-      }) 
+      })
     })
     .then((mapResults) => {
       return res.render('pages/results', {mapResults});
     })
+    .catch((err) => handleError(err, res));
 }
 
 function Book(data) {
