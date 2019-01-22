@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
       <link href="css/base.css" rel="stylesheet" type="text/css">
     <title>Google Books App</title>
   </head>
@@ -9,17 +10,19 @@
       <h3>Search by Title or Author</h3>
       <form action="searches" method="post">
         <input type="text" name="search" placeholder="Enter a title or author" required>
-        <fieldset>
-          <label for="title">
-            Title
-            <input type="radio" name="search" value="title" required>
-          </label>
-        </fieldset>
-        <fieldset>
-          <label for="author">
-            Author<input type="radio" name="search" value="author" required>
-          </label>
-        </fieldset>
+        <div class="buttons">
+          <fieldset>
+            <label for="title">
+              Title
+              <input type="radio" name="search" value="title" required>
+            </label>
+          </fieldset>
+          <fieldset>
+            <label for="author">
+              Author<input type="radio" name="search" value="author" required>
+            </label>
+          </fieldset>
+        </div>  
         <button type="submit">Search</button>
       </form>
     </main>

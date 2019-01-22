@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
+      <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+      <link href="css/base.css" rel="stylesheet" type="text/css">
       <link href="css/base.css" rel="stylesheet" type="text/css">
     <title>Google Books App</title>
   </head>
   <body>
     <main>
       <h3>Results of your search:</h3>
-      <% mapResults.forEach((book) => { %>
-        <div>
-          <img src="<%= book.imgLink %>"><br />
-          <%= book.title %><br />
-          <%= book.authors.join(' and ') %><br />
-          <%= book.description %>
-        </div>
-      <% }) %>
+      <div class="container">
+        <% mapResults.forEach((book) => { %>
+          <div class="eachBook">
+            <img src="<%= book.imgLink %>">
+            <%= book.title %><br />
+            <%= book.authors.join(' and ') %>
+            <%= book.description %>
+          </div> 
+        <% }) %>
+      </div>   
     </main>
   </body>
 </html>
