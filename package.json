@@ -1,0 +1,25 @@
+{
+  "name": "lab-11-ejs",
+  "version": "1.0.0",
+  "description": "Book app with ejs",
+  "main": "index.js",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "superagent": "^4.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danhuyle508/Lab-11-ejs.git"
+  },
+  "author": "Dan Le",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danhuyle508/Lab-11-ejs/issues"
+  },
+  "homepage": "https://github.com/danhuyle508/Lab-11-ejs#readme"
+}
