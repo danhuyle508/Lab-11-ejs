@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <link href="css/base.css" rel="stylesheet" type="text/css">
+    <title>Google Books App</title>
+  </head>
+  <body>
+    <main>
+      <h3>Results of your search:</h3>
+      <% mapResults.forEach((book) => { %>
+        <div>
+          <img src="<%= book.imgLink %>"><br />
+          <%= book.title %><br />
+          <%= book.authors.join(' and ') %><br />
+          <%= book.description %>
+        </div>
+      <% }) %>
+    </main>
+  </body>
+</html>
