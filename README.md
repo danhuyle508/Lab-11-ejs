@@ -1,2 +1,2 @@
-# Lab-11-ejs
+# Book-App
 Book app with ejs
