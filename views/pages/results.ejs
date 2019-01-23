@@ -11,13 +11,14 @@
             <button type="button" class="selectBook" data-isbn="<%= book.isbn %>">
               Select This Book
             </button>
-            <form class="hide-me" id="<%= book.isbn %>" action="">
+            <form class="hide-me" id="<%= book.isbn %>" method="post" action="/books">
               <input type="text" name="title" value="<%= book.title %>" required>
               <input type="text" name="author" value="<%= book.author %>" required>
+              <input type="text" name="image_url" value="<%= book.image_url %>" required>
               <textarea name="description" cols="30" rows="10" required><%= book.description %></textarea>
               <input type="text" name="isbn" value="<%= book.isbn %>" required>
               <input type="text" name="bookshelf">
-              <button type="submit">Save</button>
+              <button type="submit">Add to Database</button>
             </form>
           </div> 
         <% }) %>
