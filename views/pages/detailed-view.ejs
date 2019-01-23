@@ -4,9 +4,7 @@
     <main>
       <h3> Detailed Book Info</h3>
       <div class="eachBook">
-        <img src="<%= book.image_url %>" alt="<%= book.title %>">
-        <p class="title"><%= book.title %></p>
-        <p class="author"><%= book.author %></p>
+        <%- include('./books/show', {book}); %>
         <p class="description"><%= book.description %></p>
         <p class="isbn"><%= book.isbn %></p>
         <p class="bookself"><%= book.bookshelf %></p>
