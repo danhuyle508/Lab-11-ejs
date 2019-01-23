@@ -42,7 +42,7 @@ function createSearch(req, res) {
 function Book(data) {
   const placeHoldImg = 'https://i.imgur.com/J5LVHEL.jpg';
   this.title = data.title ? data.title : 'No Title Found';
-  this.authors = data.authors ? data.authors : 'This book has no authors';
+  this.authors = data.authors ? data.authors.join(' and ') : 'This book has no authors';
   this.description = data.description;
   this.imgLink = data.imageLinks.thumbnail ? data.imageLinks.thumbnail : placeHoldImg;
 }
