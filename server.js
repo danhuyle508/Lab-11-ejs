@@ -18,9 +18,10 @@ app.use(express.urlencoded({extended: true}));
 
 app.set('view engine', 'ejs');
 
+app.get('/books/:id', getOneBook);
 app.get('/', showBooks);
-app.get('/searches', newSearch)
-app.post('/searches', createSearch)
+app.get('/searches', newSearch);
+app.post('/searches', createSearch);
 app.listen(PORT, ()=> console.log(`Listening on port ${PORT}`));
 
 function newSearch(req, res) {
@@ -62,4 +63,15 @@ function Book(data) {
   this.authors = data.authors ? data.authors.join(' and ') : 'This book has no authors';
   this.description = data.description;
   this.imgLink = data.imageLinks.thumbnail ? data.imageLinks.thumbnail : placeHoldImg;
+}
+
+function getOneBook(request, response){
+  let SQL = 'SELECT * FROM books WHERE id=$1;';
+  let values = [request.params.id];
+
+  return client.query(SQL, values)
+    .then(result =>{
+      return response.render('pages/detailed-view', {book: result.rows[0]})
+    })
+    .catch(err => handleError(err, response));
 }
