@@ -1,17 +1,29 @@
 <% include ../partials/header.ejs %>
   <body>
+    <% include ../partials/nav-bar.ejs %>
     <main>
       <h3>Results of your search:</h3>
       <div class="container">
         <% mapResults.forEach((book) => { %>
           <div class="eachBook">
-            <img src="<%= book.imgLink %>">
-            <%= book.title %><br />
-            <%= book.authors %><br />
-            <%= book.description %>
+            <%- include('./books/show', {book}); %>
+            <p><%= book.description %></p>
+            <button type="button" class="selectBook" data-isbn="<%= book.isbn %>">
+              Select This Book
+            </button>
+            <form class="hide-me" id="<%= book.isbn %>" action="">
+              <input type="text" name="title" value="<%= book.title %>" required>
+              <input type="text" name="author" value="<%= book.author %>" required>
+              <textarea name="description" cols="30" rows="10" required><%= book.description %></textarea>
+              <input type="text" name="isbn" value="<%= book.isbn %>" required>
+              <input type="text" name="bookshelf">
+              <button type="submit">Save</button>
+            </form>
           </div> 
         <% }) %>
       </div>   
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./js/app.js"></script>
   </body>
 </html>

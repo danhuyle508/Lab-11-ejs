@@ -1,10 +1,14 @@
 <% include ../partials/header.ejs %>
   <body>
+      <% include ../partials/nav-bar.ejs %>
     <main>
       <h3>Books</h3>
       <h4><%= results.rowCount %> Saved Books</h4>
       <% results.rows.forEach((book) => { %>
-        <%- include('./books/show', {book}); %>
+        <div class="eachBook">
+          <%- include('./books/show', {book}); %>
+          <a href="/books/<%= book.id %>">View Details</a>
+        </div>
       <% }); %>
     </main>
   </body>

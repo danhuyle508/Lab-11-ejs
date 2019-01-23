@@ -37,7 +37,6 @@ function showBooks(req, res) {
   const SQL = `SELECT * FROM books;`
   return client.query(SQL)
     .then((results) => {
-      console.log(results);
       res.render('pages/index', {results});
     })
     .catch((err) => handleError(err, res));
@@ -60,9 +59,10 @@ function createSearch(req, res) {
 function Book(data) {
   const placeHoldImg = 'https://i.imgur.com/J5LVHEL.jpg';
   this.title = data.title ? data.title : 'No Title Found';
-  this.authors = data.authors ? data.authors.join(' and ') : 'This book has no authors';
+  this.author = data.authors ? data.authors.join(' and ') : 'This book has no authors';
   this.description = data.description;
-  this.imgLink = data.imageLinks.thumbnail ? data.imageLinks.thumbnail : placeHoldImg;
+  this.image_url = data.imageLinks.thumbnail ? data.imageLinks.thumbnail : placeHoldImg;
+  this.isbn = data.industryIdentifiers[0].identifier;
 }
 
 function getOneBook(request, response){
