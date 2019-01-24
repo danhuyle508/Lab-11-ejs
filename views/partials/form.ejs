@@ -1,0 +1,2 @@
+<h2 class="view-title"><%- 'update' === formAction ? "Update Book" : "Add a Book" %></h2>
+<form action="<%= 'update' === formAction? '/update/${book:id}' : 'delete' === formAction? '/delete/${book:id}' : '/add'%> method="post" ">
