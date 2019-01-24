@@ -19,11 +19,9 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(
   methodOverride(request => {
-    console.log('request.body: ', request.body);
     if(request.body && typeof request.body === 'object' && '_method' in request.body) {
       let method = request.body._method;
       delete request.body._method;
-      console.log('method: ', method);
       return method;
     }
   })
