@@ -1,14 +1,19 @@
 <% include ../partials/header.ejs %>
-<% include ../partials/nav-bar.ejs %>
   <body>
+      <% include ../partials/nav-bar.ejs %>
     <main>
       <h3> Detailed Book Info</h3>
       <div class="eachBook">
         <%- include('./books/show', {book}); %>
         <p class="description"><%= book.description %></p>
         <p class="isbn"><%= book.isbn %></p>
-        <p class="bookself"><%= book.bookshelf %></p>
+        <p class="bookshelf"><%= book.bookshelf %></p>
+        <button type="button" class="selectBook" data-isbn="<%= book.isbn %>">Update Details</button>
+        <%- include('../partials/form.ejs',
+        {book: book, bookshelves: bookshelves, formAction: `/books/${book.id}`, method: 'put'}) %>
       </div>
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../../js/app.js"></script>
   </body>
 </html>

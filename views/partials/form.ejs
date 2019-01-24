@@ -1,2 +1,20 @@
 <h2 class="view-title"><%- 'update' === formAction ? "Update Book" : "Add a Book" %></h2>
-<form action="<%= 'update' === formAction? '/update/${book:id}' : 'delete' === formAction? '/delete/${book:id}' : '/add'%> method="post" ">
+
+<form class="hide-me" id="<%=book.isbn%>" 
+action="<%= formAction %>" method="post" >
+
+<input type="hidden" name="_method" value="<%= method %>">
+<input type="text" name="title" value="<%= book.title %>" placeholder= "book name">
+<input type="text" name="author" value="<%= book.author %>" placeholder="Author">
+<textarea name="description" placeholder="Desrciption of the book." cols="30" rows="10"><%= book.description%></textarea>
+<input type="text" name="image_url" value="<% book.image_url %>" placeholder="image url">
+<input type="text" name="isbn" value="<%= book.isbn %>" placeholder="isbn">
+
+<select name="bookshelf_List"><%bookshelves.forEach(element => { %>
+    <option value="<%= element.bookshelf%>"<%= element === book.bookshelf ? 'selected' : ''%>>
+        <%= element.bookshelf %></option>
+    <%});%>
+</select>
+<button type='submit'>Update</button>
+<button type='submit'>Delete</button>
+</form>
