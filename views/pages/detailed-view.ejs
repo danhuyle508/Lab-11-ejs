@@ -9,8 +9,17 @@
         <p class="isbn"><%= book.isbn %></p>
         <p class="bookshelf"><%= book.bookshelf %></p>
         <button type="button" class="selectBook" data-isbn="<%= book.isbn %>">Update Details</button>
-        <%- include('../partials/form.ejs',
-        {book: book, bookshelves: bookshelves, formAction: `/books/${book.id}`, method: 'put'}) %>
+        <%- include('../partials/form.ejs', {
+          book: book, 
+          bookshelves: bookshelves, 
+          formAction: `/books/${book.id}`, 
+          method: 'put',
+          buttonText: 'Update'
+        }); %>
+        <%- include('../partials/delete-form', {
+          book: book,
+          formAction: `/books/${book.id}`
+        }) %>
       </div>
     </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

@@ -18,10 +18,12 @@ app.use(express.static('./public'));
 app.use(express.urlencoded({extended: true}));
 
 app.use(
-  methodOverride(request=>{
-    if(request.body && typeof request.body === 'object' && '_method' in request.body){
+  methodOverride(request => {
+    console.log('request.body: ', request.body);
+    if(request.body && typeof request.body === 'object' && '_method' in request.body) {
       let method = request.body._method;
       delete request.body._method;
+      console.log('method: ', method);
       return method;
     }
   })
@@ -29,9 +31,10 @@ app.use(
 
 app.set('view engine', 'ejs');
 
-app.put('/books/:id', updateBook);
-app.post('/books', saveBook);
+app.delete('/books/:id', deleteBook);
 app.get('/books/:id', getOneBook);
+app.post('/books', saveBook);
+app.put('/books/:id', updateBook);
 app.get('/', showBooks);
 app.get('/searches', newSearch);
 app.post('/searches', createSearch);
@@ -67,7 +70,11 @@ function createSearch(req, res) {
       })
     })
     .then((mapResults) => {
-      return res.render('pages/results', {mapResults});
+      let SQL = 'SELECT DISTINCT bookshelf FROM books;';
+      return client.query(SQL)
+        .then((bookshelves) => {
+          return res.render('pages/results', {mapResults: mapResults, bookshelves: bookshelves.rows});
+        }).catch((err) => handleError(err, res));
     })
     .catch((err) => handleError(err, res));
 }
@@ -108,12 +115,21 @@ function saveBook(req, res) {
 }
 
 function updateBook(req, res){
-  let SQL = `UPDATE books SET title= $1, author=$2, description = $3, image_url=$4, isbn=$5, bookshelf=%6 WHERE id=${req.params.id};`;
+  let SQL = `UPDATE books SET title= $1, author=$2, description=$3, image_url=$4, isbn=$5, bookshelf=$6 WHERE id=$7;`;
   let {title, author, description, image_url, isbn, bookshelf} = req.body;
-  let values=[title, author, description, image_url, isbn, bookshelf];
+  let values=[title, author, description, image_url, isbn, bookshelf, req.params.id];
   return client.query(SQL, values)
     .then(()=>{
       res.redirect(`/books/${req.params.id}`);
+    })
+    .catch(err =>handleError(err,res));
+}
+
+function deleteBook(req, res) {
+  let SQL = `DELETE FROM books WHERE id=$1;`;
+  return client.query(SQL, [req.params.id])
+    .then(() => {
+      res.redirect('/');
     })
     .catch(err =>handleError(err,res));
 }
