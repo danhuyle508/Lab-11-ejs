@@ -3,6 +3,7 @@
 const express = require('express');
 const superagent = require('superagent');
 const pg = require('pg');
+const methodOverride = require('method-override');
 
 require('dotenv').config();
 const PORT = process.env.PORT;
@@ -16,13 +17,27 @@ const app = express();
 app.use(express.static('./public'));
 app.use(express.urlencoded({extended: true}));
 
+app.use(
+  methodOverride(request=>{
+    if(request.body && typeof request.body === 'object' && '_method' in request.body){
+      let method = request.body._method;
+      delete request.body._method;
+      return method;
+    }
+  })
+);
+
 app.set('view engine', 'ejs');
 
+app.put('/books/:id', updateBook);
 app.post('/books', saveBook);
 app.get('/books/:id', getOneBook);
 app.get('/', showBooks);
 app.get('/searches', newSearch);
 app.post('/searches', createSearch);
+
+
+
 app.listen(PORT, ()=> console.log(`Listening on port ${PORT}`));
 
 function newSearch(req, res) {
@@ -68,11 +83,16 @@ function Book(data) {
 
 function getOneBook(req, res) {
   let SQL = 'SELECT * FROM books WHERE id=$1;';
+  let SQL2 = 'SELECT DISTINCT bookshelf FROM books;';
   let values = [req.params.id];
 
   return client.query(SQL, values)
     .then((result) => {
-      return res.render('pages/detailed-view', {book: result.rows[0]})
+      return client.query(SQL2)
+        .then(result2=>{
+          return res.render('pages/detailed-view', {book: result.rows[0], bookshelves: result2.rows});
+        })
+        .catch(err => handleError(err,res));
     })
     .catch(err => handleError(err, res));
 }
@@ -83,7 +103,17 @@ function saveBook(req, res) {
   let values = [title, author, description, image_url, isbn, bookshelf];
   return client.query(SQL, values)
     .then((result) => {
-      //res.render(`/books/${result.rows[0].id}`);
       res.redirect(`/books/${result.rows[0].id}`);
     }).catch(err => handleError(err, res));
+}
+
+function updateBook(req, res){
+  let SQL = `UPDATE books SET title= $1, author=$2, description = $3, image_url=$4, isbn=$5, bookshelf=%6 WHERE id=${req.params.id};`;
+  let {title, author, description, image_url, isbn, bookshelf} = req.body;
+  let values=[title, author, description, image_url, isbn, bookshelf];
+  return client.query(SQL, values)
+    .then(()=>{
+      res.redirect(`/books/${req.params.id}`);
+    })
+    .catch(err =>handleError(err,res));
 }
