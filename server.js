@@ -58,12 +58,12 @@ function createSearch(req, res) {
 }
 
 function Book(data) {
-  const placeHoldImg = 'https://i.imgur.com/J5LVHEL.jpg';
   this.title = data.title ? data.title : 'No Title Found';
   this.author = data.authors ? data.authors.join(' and ') : 'This book has no authors';
-  this.description = data.description;
-  this.image_url = data.imageLinks.thumbnail ? data.imageLinks.thumbnail : placeHoldImg;
-  this.isbn = data.industryIdentifiers[0].identifier;
+  this.description = data.description ? data.description : 'N/A';
+  if (this.description.length > 254) this.description = this.description.slice(0, 250) + '...';
+  this.image_url = data.imageLinks ? data.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
+  this.isbn = data.industryIdentifiers ? data.industryIdentifiers[0].identifier : 'Strangely, there is no ISBN for this book';
 }
 
 function getOneBook(req, res) {
@@ -78,18 +78,12 @@ function getOneBook(req, res) {
 }
 
 function saveBook(req, res) {
-  let SQL = 'INSERT INTO books VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;';
+  let SQL = 'INSERT INTO books (title, author, description, image_url, isbn, bookshelf) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id;';
   let {title, author, description, image_url, isbn, bookshelf} = req.body;
   let values = [title, author, description, image_url, isbn, bookshelf];
-  console.log('these are values', values);
   return client.query(SQL, values)
     .then((result) => {
-//      let SQL = 'SELECT * FROM books WHERE id=$1;';
-      let values = [result.rows[0].id];
-      console.log('these are the values', values);
-//      return client.query(SQL, values)
-//        .then((result) => {
-//          return res.render('pages/detailed-view', {book: result.rows[0]})
-        //}).catch(err => handleError(err, res));
+      //res.render(`/books/${result.rows[0].id}`);
+      res.redirect(`/books/${result.rows[0].id}`);
     }).catch(err => handleError(err, res));
 }
