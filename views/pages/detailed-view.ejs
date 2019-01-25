@@ -7,7 +7,7 @@
         <%- include('./books/show', {book}); %>
         <p class="description"><%= book.description %></p>
         <p class="isbn"><%= book.isbn %></p>
-        <p class="bookshelf"><%= book.bookshelf %></p>
+        <p class="bookshelf"><%= bookshelves.name %></p>
         <button type="button" class="selectBook" data-isbn="<%= book.isbn %>">Update Details</button>
         <%- include('../partials/form.ejs', {
           book: book, 
